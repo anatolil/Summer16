@@ -10,6 +10,11 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
+        <form id="loginform" action="index.php">
+            <input type="text"><br>
+            <input type="password">
+            <input type="submit" value="Login">
+        </form>
         <?php
         require_once ('config.php');
         require_once ('dbopen.php');
@@ -27,7 +32,7 @@ and open the template in the editor.
         $i = 0;                                                                 // number of movies
         
         while ($row = mysql_fetch_array($results)) {
-            echo "<div id=movie" . $i . ">";
+            echo "<div id=movie" . $i . " class='moviethumb'>";
             echo "<p class=movieName>" . $row[1] .  "</p>";                     // print movie name
             
             if(is_null($row[2])) {
