@@ -38,13 +38,6 @@ and open the template in the editor.
             echo "<script>alert('fuck off');</script>";
         }
         
-        // check for cookie
-        if(!isset($_COOKIE[$movie_cookie])) {
-            // cookie not set
-        } else {
-            // cookie set and user propably logged
-        }
-        
         
         // query all the movies in db
         $query = "SELECT * FROM Movie";
