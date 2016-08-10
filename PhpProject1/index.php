@@ -25,13 +25,13 @@ and open the template in the editor.
         require_once ('config.php');
         require_once ('dbopen.php');
         
-        // check for user auth
+        
         $query = "SELECT * FROM MovieUsers WHERE vcUserName = '" . $uname . "' AND vcUserPassword = '" . $upass . "';";
         $reults = mysql_query($query)
                 or die("You suck at authenticating users" . mysql_error());
         
         if(mysql_fetch_array($reults)) {
-            // user auth correct
+            // user auth correct set the cookie
             echo "<script>alert('User auth');</script>";
         } else {
             // user auth not correct
@@ -46,11 +46,10 @@ and open the template in the editor.
         
         $i = 0;                                                                 // number of movies
         
-        
         // display all the movies on a page
         while ($row = mysql_fetch_array($results)) {
             echo "<div id=movie" . $i . " class='moviethumb'>";
-            echo "<p class=movieName>" . $row[1] .  "</p>";                     // print movie name   consider using span
+            echo "<span class=movieName>" . $row[1] .  "</span>";                     // print movie name   consider using span
             
             if(is_null($row[2])) {
                 echo "<img class=movieImg src='pictures/noimage.jpg'></img>";
@@ -61,7 +60,6 @@ and open the template in the editor.
             echo "</div>";
             $i++;
         }
-        
         
         // require_once ('dbclose.php');
         ?>
