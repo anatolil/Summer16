@@ -10,12 +10,21 @@ and open the template in the editor.
         <title></title>
     </head>
     <body>
-        <form id="loginform" action="index.php" method="POST">
-            <input type="text" name="user"><br>
-            <input type="password" name="password">
-            <input type="submit" value="Login">
-        </form>
+        
         <?php
+        session_start();
+        
+        if($_SESSION["usersession"]) {
+            // user is logged
+            echo '<a href="">logout</a>';
+        } else {
+            // user is not logged in
+            echo '<form id="loginform" action="index.php" method="POST">';
+            echo '<input type="text" name="user"><br>';
+            echo '<input type="password" name="password">';
+            echo '<input type="submit" value="Login">';
+            echo '</form>';
+        }
         
         // get the login info from form
         $uname = $_POST[user];
@@ -30,12 +39,14 @@ and open the template in the editor.
         $reults = mysql_query($query)
                 or die("You suck at authenticating users" . mysql_error());
         
-        if(mysql_fetch_array($reults)) {
-            // user auth correct set the cookie
-            echo "<script>alert('User auth');</script>";
+        if($row = mysql_fetch_array($reults)) {
+            // user auth correct set the session variables
+            
+            $_SESSION["usersession"] = $uname;
+            $_SESSION["userlevelsession"] = $row[3];
         } else {
             // user auth not correct
-            echo "<script>alert('fuck off');</script>";
+            session_unset();                                                    // removes all session variables kinda useless
         }
         
         
