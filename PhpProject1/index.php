@@ -8,6 +8,7 @@ and open the template in the editor.
     <head>
         <meta charset="UTF-8">
         <title></title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">
     </head>
     <body>
         
@@ -16,14 +17,18 @@ and open the template in the editor.
         
         if($_SESSION["usersession"]) {
             // user is logged
-            echo '<a href="">logout</a>';
+            echo '<div class="loginMenu">';
+            echo '<a href="" id="logoutbutton">logout</a>';
+            echo '</div><br>';
         } else {
             // user is not logged in
+            echo '<span class="loginMenu">';                                    // div might also be a good idea
             echo '<form id="loginform" action="index.php" method="POST">';
-            echo '<input type="text" name="user"><br>';
-            echo '<input type="password" name="password">';
+            echo '<input type="text" name="user" id="userNameInput"><br>';
+            echo '<input type="password" name="password" id="userPasswordInput"><br>    ';
             echo '<input type="submit" value="Login">';
             echo '</form>';
+            echo '</span><br>';
         }
         
         // get the login info from form
@@ -42,8 +47,8 @@ and open the template in the editor.
         if($row = mysql_fetch_array($reults)) {
             // user auth correct set the session variables
             
-            $_SESSION["usersession"] = $uname;
-            $_SESSION["userlevelsession"] = $row[3];
+            $_SESSION["usersession"] = $uname;                                  // username
+            $_SESSION["userlevelsession"] = $row[3];                            // user level 1 = admin 2 = regular
         } else {
             // user auth not correct
             session_unset();                                                    // removes all session variables kinda useless
@@ -58,8 +63,9 @@ and open the template in the editor.
         $i = 0;                                                                 // number of movies
         
         // display all the movies on a page
-        while ($row = mysql_fetch_array($results)) {
-            echo "<div id=movie" . $i . " class='moviethumb'>";
+        echo "<div class='movierow'>";                                          // row of 5 movies thumbs
+        while ($row = mysql_fetch_array($results) OR $i < 5) {
+            echo "<span id=movie" . $i . " class='moviethumb'>";                // div might also bee a good idea
             echo "<span class=movieName>" . $row[1] .  "</span>";                     // print movie name   consider using span
             
             if(is_null($row[2])) {
@@ -68,9 +74,10 @@ and open the template in the editor.
                 echo "<img class=movieImg src='pictures/" . $row[2] . "'></img>";  // path to img src
             }
             
-            echo "</div>";
+            echo "</span>";
             $i++;
         }
+        echo "</div>";
         
         // require_once ('dbclose.php');
         ?>
