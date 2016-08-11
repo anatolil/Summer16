@@ -65,9 +65,9 @@ and open the template in the editor.
         
         // display all the movies on a page
         echo "<div class='movierow'>";                                          // row of 5 movies thumbs
-        while ($row = mysql_fetch_array($results) OR $i < 5) {
+        while ($row = mysql_fetch_array($results) AND $i < 5) {
             echo "<span id=movie" . $i . " class='moviethumb'>";                // div might also bee a good idea
-            //echo "<p class=movieName>" . $row[1] .  "</p>";                     // print movie name   consider using span
+            echo "<p class=movieName>" . $row[1] .  "</p>";                     // print movie name   consider using span
             
             if(is_null($row[2])) {
                 echo "<img class=movieImg src='pictures/noimage.jpg'></img>";
