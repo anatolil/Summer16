@@ -4,4 +4,5 @@ INSERT INTO MovieUsers(vcUserName, vcUserPassword, iLevel) VALUES
 
 INSERT INTO Movie(vcMovieName, vcImgSource, vcYTLink) VALUES
   ('Terminator 2', 'terminator.jpg', 'https://www.youtube.com/watch?v=nxr2SV5znwI'),
-  ('Ghostbusters', NULL, 'https://www.youtube.com/watch?v=SM-l_3RaYsk');
+  ('Ghostbusters', NULL, 'https://www.youtube.com/watch?v=SM-l_3RaYsk'),
+  ('Despicable Me', 'despicable_me.jpg', 'www.google.com');

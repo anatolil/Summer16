@@ -28,7 +28,7 @@ and open the template in the editor.
             echo '<form id="loginform" action="index.php" method="POST">';
             echo '<input type="text" name="user" id="userNameInput"><br>';
             echo '<input type="password" name="password" id="userPasswordInput"><br>    ';
-            echo '<input type="submit" value="Login">';
+            echo '<input type="submit" value="Login" id="loginButton">';
             echo '</form>';
             echo '</span><br>';
         }
@@ -51,6 +51,7 @@ and open the template in the editor.
             
             $_SESSION["usersession"] = $uname;                                  // username
             $_SESSION["userlevelsession"] = $row[3];                            // user level 1 = admin 2 = regular
+        //echo "<script>alert('" . $_SESSION['userlevelsession'] . "')</script>";
         } else {
             // user auth not correct
             session_unset();                                                    // removes all session variables kinda useless
@@ -69,6 +70,10 @@ and open the template in the editor.
         while ($row = mysql_fetch_array($results) AND $i < 5) {
             echo "<span id=movie" . $i . " class='moviethumb'>";                // div might also bee a good idea
             echo "<p class=movieName>" . $row[1] .  "</p>";                     // print movie name   consider using span
+            
+            if($_SESSION["userlevelsession"] == 1) {                             // show delete button if admin
+                echo '<a href="delete.php?id=' . $row[0] . '">delete</a>';
+            }
             
             if(is_null($row[2])) {
                 echo "<img class=movieImg src='pictures/noimage.jpg'></img>";
